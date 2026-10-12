@@ -1,7 +1,7 @@
 [project]
 name = "novacommerce"
 version = "0.1.0"
-description = "Add your description here"
+description = "Enterprise Data and Knowledge Agent learning project"
 readme = "README.md"
 authors = [
     { name = "Syedwajihshah", email = "wajihshah10@gmail.com" }
