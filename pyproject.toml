@@ -7,10 +7,13 @@ authors = [
     { name = "Syedwajihshah", email = "wajihshah10@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "openai>=3.31.0",
+    "pydantic>=2.14.1",
+]
 
 [project.scripts]
-novacommerce = "novacommerce:main"
+novacommerce = "novacommerce.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.13.0,<0.14.0"]

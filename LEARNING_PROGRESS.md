@@ -7,37 +7,36 @@ AI Engineering & Agentic Systems Mastery program.
 
 ## Current position
 
-**Last updated:** 2026-10-12  
-**Current stage:** Stage 1 — AI-native engineering + LLM application foundations  
-**Current day:** Day 1 — Environment audit and repository contract  
-**Day status:** COMPLETE  
-**Overall active days completed:** 1 / 60  
-**Current project version:** V0  
-**Current Git branch:** day1-progress-record  
-**Latest commit SHA:** d5f9e33  
-**Open issue / PR:** None — PR #2 merged; Issue #1 closed  
-**GitHub Project:** #2 — NovaCommerce Learning Roadmap
+**Last updated:** 2026-10-15
+**Current stage:** Stage 1 — AI-native engineering + LLM application foundations
+**Current day:** Day 2 — LLM APIs and message/context model
+**Day status:** PARTIAL
+**Overall active days completed:** 1 / 60
+**Current project version:** V0, with Day 2 additions on the feature branch
+**Current Git branch:** day2-llm-client
+**Latest implementation commit SHA:** eeae2ea
+**Open issue / PR:** Issue #4 open; PR not yet created
+**GitHub Project:** #2 — NovaCommerce Learning Roadmap; Issue #4 added
 
 ### Current focus
 
-- Day 1 complete. Return to Master after final CHECKPOINT and route to Day 2.
+- Complete Day 2 GitHub delivery and progress recording.
 
 ### Strongest current areas
 
-- Python environment isolation and `uv` workflow
-- Git feature-branch / PR workflow
-- Repository structure and development contract
-- Codex versus repository instructions versus application runtime
+- Explicit context and isolated model calls
+- Structured output versus factual correctness
+- Configuration separation and provider interfaces
+- Mocking the external client while testing real application code
 
 ### Weakest / uncertain areas
 
-- `pyproject.toml` versus `uv.lock` initially required additional clarification
-- pytest discovery and output capture initially required additional clarification
-- Reinforce both concepts through future hands-on use
+- Reinforce Protocol/mypy versus Pydantic runtime validation.
+- Reinforce context-window versus output-token accounting.
 
 ### Next exact action
 
-- Satisfy the Day-1 GitHub issue-board requirement, then rerun CHECKPOINT.
+- Review and commit this progress update, push the branch, and open a PR linked to Issue #4.
 
 ---
 
@@ -151,6 +150,92 @@ These were remediated through explanation and hands-on examples.
 ### 11. Next exact action
 
 - Run CHECKPOINT again, sync the COMPLETE result to Master, then use NEXT CHAT.
+
+---
+
+
+## Day 02 — LLM APIs and message/context model
+
+**Date:** 2026-10-15
+**Stage:** Stage 1 — AI-native engineering + LLM application foundations
+**Status:** PARTIAL — implementation and knowledge check passed; delivery pending
+
+### 1. Concepts I can now explain
+
+- Each call receives the context explicitly supplied by the application.
+- Structured output validates shape and types, not factual correctness.
+- Protocol describes the provider contract; mypy checks annotated code.
+- Mock and monkeypatch replace the external client during offline tests.
+- Output-token limits cover generated reasoning and visible output.
+
+### 2. What I implemented
+
+- Settings loading with required environment variables and hidden key representation.
+- LLMProvider Protocol and OpenAIProvider.
+- Strict LLMAnswer schema.
+- JSON CLI with client cleanup.
+- Offline schema, configuration, provider and CLI tests.
+
+### 3. Artifact / evidence produced
+
+- config.py, schemas.py, llm.py and cli.py
+- Updated CLI entry point, README and .env.example
+- Eight offline tests
+- Implementation commit eeae2ea
+- GitHub Issue #4, linked to Project #2
+
+### 4. Evidence and measurements
+
+- pytest: 8 passed, confirmed by learner.
+- mypy: no issues, confirmed by learner.
+- CLI --help: correct command wiring verified.
+- Missing-policy live example: requested information with needs_more_information=true.
+- Staged diff reviewed; whitespace check clean.
+- Working tree clean after implementation commit.
+- Latency and cost measurements: not collected yet.
+
+### 5. Knowledge-check result
+
+- Passed after clarification.
+- Informal understanding rating: 8/10.
+- Corrected token-budget answer: 1024 minus 200 leaves 824 output tokens.
+
+### 6. Weaknesses / unresolved questions
+
+- Revisit static type checking versus runtime data validation.
+- Reinforce token accounting through Day 3 measurements.
+- GitHub delivery and final progress synchronization remain unfinished.
+
+### 7. Important engineering decisions
+
+- Keep configuration, schema, provider and CLI responsibilities separate.
+- Return the validated LLMAnswer from the provider.
+- Keep default tests offline by replacing the external API client.
+- Select the model through environment configuration.
+
+### 8. Technology freshness decisions
+
+- Stage 1 freshness baseline is recorded in Day 1.
+- No additional technology decision was made during this checkpoint.
+
+### 9. Git / GitHub checkpoint
+
+**Issue:** #4 — Day 2: LLM APIs and message/context model
+**Branch:** day2-llm-client
+**Implementation commit:** eeae2ea
+**Project:** #2 — NovaCommerce Learning Roadmap; issue added
+**PR / merge:** Pending
+**CI:** Not configured; validation performed locally
+
+### 10. Interview explanation
+
+> The CLI loads configuration, constructs a provider and supplies instructions and input to the model. The provider returns a Pydantic-validated answer. That validation checks the response structure, while semantic correctness requires separate evaluation. Offline tests replace the external client and exercise our actual application logic.
+
+### 11. Next exact action
+
+- Review and commit the progress update.
+- Push the branch and create a PR with Closes #4.
+- Review and merge, confirm issue and board completion, synchronize main, then record the final CHECKPOINT.
 
 ---
 
