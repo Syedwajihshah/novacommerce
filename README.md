@@ -8,7 +8,8 @@ The project will evolve gradually across retrieval, RAG, tool use, agents, LangG
 
 Stage 1 — repository and LLM application foundations.
 
-At this point, the repository contains only the basic Python project structure, environment configuration, tests, documentation, and repository instructions.
+The repository includes a small LLM CLI with an OpenAI provider,
+separate configuration, Pydantic-validated JSON, and offline tests.
 
 ## Requirements
 
@@ -26,17 +27,13 @@ uv sync --locked --python 3.12
 
 ## Run
 
-Run the current starter CLI:
+Show the CLI help:
 
 ```bash
-uv run novacommerce
+uv run --locked novacommerce --help
 ```
 
-Expected output:
-
-```text
-Hello from novacommerce!
-```
+For API configuration and questions, see the LLM CLI section below.
 
 ## Tests
 
@@ -87,3 +84,40 @@ Changes should be:
 NovaCommerce does not yet contain production LLM, retrieval, RAG, agent, database, or API functionality.
 
 Those capabilities will be added incrementally as the project progresses.
+
+
+## LLM CLI
+
+Install the project and its development dependencies:
+
+```bash
+uv sync --locked
+```
+
+Create a local `.env` using `.env.example` as the template.
+Set `OPENAI_API_KEY` to your API key and select `OPENAI_MODEL`.
+
+Run a question with its supporting information:
+
+```bash
+uv run --locked --env-file .env novacommerce "Policy: Orders delivered more than two days late qualify for a refund. Order: Three days late. Question: Does it qualify?"
+```
+
+The command prints JSON containing:
+- `answer`: a string
+- `needs_more_information`: a boolean
+
+Pydantic validates the fields and their types. It does not guarantee
+that the answer is factually correct.
+
+Run the automated tests without making API calls:
+
+```bash
+uv run --locked pytest -q
+```
+
+Check application types:
+
+```bash
+uv run --locked --with mypy mypy src/novacommerce
+```
